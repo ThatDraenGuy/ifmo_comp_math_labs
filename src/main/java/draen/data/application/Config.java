@@ -1,4 +1,4 @@
-package draen.data;
+package draen.data.application;
 
 import lombok.Getter;
 import lombok.Setter;

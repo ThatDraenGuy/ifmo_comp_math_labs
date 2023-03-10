@@ -10,7 +10,7 @@ import draen.controllers.ControllerChain;
 import draen.controllers.GreetingsController;
 import draen.controllers.InteractionController;
 import draen.controllers.OptionsController;
-import draen.data.Config;
+import draen.data.application.Config;
 import draen.data.application.Progress;
 import draen.input.ConsoleManager;
 

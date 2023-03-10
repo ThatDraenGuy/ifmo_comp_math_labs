@@ -1,7 +1,7 @@
 package draen.context;
 
 import draen.commands.CommandsStorage;
-import draen.data.Config;
+import draen.data.application.Config;
 import draen.data.application.Progress;
 import draen.input.IOManager;
 import lombok.AllArgsConstructor;

@@ -69,13 +69,17 @@ public class Matrix {
     }
 
     private String applyDisplayTemplate(Function<Double, String> displayFunction) {
+        return displayCustom((i, j) -> "", displayFunction);
+    }
+
+    public String displayCustom(BiFunction<Integer, Integer, String> appender, Function<Double, String> displayFunction) {
         StringBuilder builder = new StringBuilder();
-        allRows().forEach(row -> {
-            for (double val : row) {
-                builder.append(displayFunction.apply(val)).append('\t');
+        for (int i = 0; i < height(); i++) {
+            for (int j = 0; j < width(); j++) {
+                builder.append(appender.apply(i, j)).append(displayFunction.apply(data[i][j])).append('\t');
             }
             builder.append('\n');
-        });
+        }
         return builder.toString();
     }
 

@@ -47,18 +47,44 @@ public class Storage {
                                 matrix -> {
                                     double x1 = matrix.getData()[0][0];
                                     double x2 = matrix.getData()[1][0];
-                                    return Math.pow(x1, 3) + Math.cos(x1) - x2;
+                                    return Math.pow(x1, 3) + Math.cos(x1) + 3*x1 - x2;
                                 },
-                                "x1^3 + cos(x1) - x2"
+                                "x1^3 + cos(x1) + 3x1 - x2"
                         ),
                         new NonLinearEquation(
                                 2,
                                 matrix -> {
                                     double x1 = matrix.getData()[0][0];
                                     double x2 = matrix.getData()[1][0];
-                                    return Math.pow(x1, 2) - 3*x1 - x2;
+                                    return Math.pow(x1, 2) - x1 + 3*x2;
                                 },
-                                "x1^2 + 3*x1 - x2"
+                                "x1^2 - x1 + 3*x2"
+                        )
+                }
+        );
+    }
+
+    public static NonLinearEquationSystem systemTest2() {
+        return new NonLinearEquationSystem(
+                2,
+                new NonLinearEquation[]{
+                        new NonLinearEquation(
+                                2,
+                                matrix -> {
+                                    double x1 = matrix.getData()[0][0];
+                                    double x2 = matrix.getData()[1][0];
+                                    return Math.pow(x1, 2) - x2;
+                                },
+                                "x1^2 - x2"
+                        ),
+                        new NonLinearEquation(
+                                2,
+                                matrix -> {
+                                    double x1 = matrix.getData()[0][0];
+                                    double x2 = matrix.getData()[1][0];
+                                    return x1 - 1 + Math.pow(x2, 2);
+                                },
+                                "x1 - 1 + x2^2"
                         )
                 }
         );

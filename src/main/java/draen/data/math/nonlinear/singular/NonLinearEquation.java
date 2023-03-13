@@ -25,7 +25,7 @@ public class NonLinearEquation {
 
     public double applyDifferential(Matrix variablesRow, int derivativeNum, double step) throws AlgebraException {
         Matrix increasedVariables = new Matrix(variablesRow.width(), variablesRow.height(),
-                (i, j) -> j == derivativeNum ? variablesRow.getData()[i][j] + step : variablesRow.getData()[i][j]
+                (i, j) -> i == derivativeNum ? variablesRow.getData()[i][j] + step : variablesRow.getData()[i][j]
         );
         return ( apply(increasedVariables) - apply(variablesRow) ) / step;
     }

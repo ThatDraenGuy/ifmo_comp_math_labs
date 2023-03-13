@@ -17,7 +17,7 @@ public class NonLinearEquationSystem {
         if (variablesRow.width() != 1 || variablesRow.height() != variablesNum) throw new AlgebraException("Size mismatch!");
         return new Matrix(1, equations.length, (i, j) -> {
             try {
-                return equations[j].apply(variablesRow);
+                return equations[i].apply(variablesRow);
             } catch (AlgebraException ignored) {
                 return 0.0;
             }

@@ -27,14 +27,15 @@ public class Config {
     private NonLinearSystemMethod nonLinearSystemMethod = new NewtonMethod();
 
     private NonLinearEquation nonLinearEquation = Storage.test3();
-    private NonLinearEquationSystem nonLinearEquationSystem = Storage.systemTest1();
+    private NonLinearEquationSystem nonLinearEquationSystem = Storage.systemTest2();
 
     public String display() {
         return "precision: " + precision + "\n" +
-                "solution interval: " + solutionInterval + "\n" +
                 "scenario: " + scenario + "\n" +
                 switch (scenario) {
-                    case NONLINEAR_EQUATION -> "selected equation: " + nonLinearEquation;
+                    case NONLINEAR_EQUATION ->
+                            "solution interval: " + solutionInterval + "\n" +
+                            "selected equation: " + nonLinearEquation;
                     case NONLINEAR_SYSTEM -> "selected system: " + nonLinearEquationSystem;
                 };
     }

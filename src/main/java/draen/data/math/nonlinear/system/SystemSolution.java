@@ -1,5 +1,6 @@
 package draen.data.math.nonlinear.system;
 
+import draen.format.Formatter;
 import draen.math.linear.Matrix;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +15,11 @@ public class SystemSolution {
     private final Duration duration;
 
     public String display() {
-        return "-duration: " + duration.getNano() / 1000 + "milliseconds\n" +
+        return "-duration: " + duration.getNano() / 1000 + " milliseconds\n" +
                 "-stepAmount: " + stepAmount +"\n" +
-                "-result:\n" + result.displayWithPrecision();
+                "-result:\n" + result.displayCustom(
+                (i, j) -> "x"+(i+1)+": ",
+                Formatter::formatWithPrecision
+        );
     }
 }

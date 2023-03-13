@@ -15,28 +15,33 @@ import java.util.NoSuchElementException;
 public class CommandArgs {
     private final Integer numInt;
     private final Double numDouble;
+    private final String string;
     private final File file;
     private final Range range;
     private final ArgsType type;
 
     public static CommandArgs none() {
-        return new CommandArgs(null, null, null, null, ArgsType.NONE);
+        return new CommandArgs(null, null, null, null, null, ArgsType.NONE);
     }
 
     public static CommandArgs numInt(int num) {
-        return new CommandArgs(num, null, null, null, ArgsType.INT);
+        return new CommandArgs(num, null, null, null, null, ArgsType.INT);
     }
 
     public static CommandArgs numDouble(double num) {
-        return new CommandArgs(null, num, null, null, ArgsType.DOUBLE);
+        return new CommandArgs(null, num, null, null, null, ArgsType.DOUBLE);
+    }
+
+    public static CommandArgs string(String string) {
+        return new CommandArgs(null, null, string, null, null, ArgsType.STRING);
     }
 
     public static CommandArgs file(File file) {
-        return new CommandArgs(null, null, file, null, ArgsType.FILE);
+        return new CommandArgs(null, null, null, file, null, ArgsType.FILE);
     }
 
     public static CommandArgs range(Range range) {
-        return new CommandArgs(null, null, null, range, ArgsType.RANGE);
+        return new CommandArgs(null, null, null, null, range, ArgsType.RANGE);
     }
 
     public static CommandArgs parseArgs(Iterator<String> params, ArgsType argsType) throws ArgsParseException {
@@ -63,6 +68,7 @@ public class CommandArgs {
                         );
                     }
                 }
+                case STRING -> CommandArgs.string(params.next());
                 case RANGE -> {
                     String min = params.next();
                     String max = params.next();

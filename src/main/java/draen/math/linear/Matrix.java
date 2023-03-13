@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Matrix {
+    @Getter
     private final double[][] data;
 
     public Matrix(int width, int height) {

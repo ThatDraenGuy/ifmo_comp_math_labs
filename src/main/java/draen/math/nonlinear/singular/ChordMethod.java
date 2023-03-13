@@ -1,11 +1,11 @@
 package draen.math.nonlinear.singular;
 
-import draen.data.Range;
 import draen.data.math.nonlinear.singular.Interval;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.exceptions.AlgebraException;
-import draen.math.linear.Matrix;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -25,7 +25,7 @@ public class ChordMethod implements NonlinearEquationMethod {
             stepAmount++;
         }
 
-        return new NonLinearSolution(iterationResult.getC(), stepAmount, Duration.between(start, Instant.now()));
+        return new NonLinearSolution(iterationResult.getC(), stepAmount, Duration.between(start, Instant.now()), "Chord method");
     }
 
     private IterationResult iterate(NonLinearEquation equation, Interval interval) throws AlgebraException {
@@ -38,5 +38,13 @@ public class ChordMethod implements NonlinearEquationMethod {
         if (fOfA * fOfC > 0) a = c;
         else b = c;
         return new IterationResult(new Interval(a, b), c, fOfC);
+    }
+
+    @Getter
+    @AllArgsConstructor
+    private static class IterationResult {
+        private final Interval interval;
+        private final double c;
+        private final double fOfC;
     }
 }

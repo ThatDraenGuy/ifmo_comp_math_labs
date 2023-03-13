@@ -4,6 +4,7 @@ public enum ArgsType {
     NONE,
     INT,
     DOUBLE,
+    STRING,
     FILE,
     RANGE;
 
@@ -13,6 +14,7 @@ public enum ArgsType {
             case NONE -> "";
             case INT -> "<int>";
             case DOUBLE -> "<double>";
+            case STRING -> "<string>";
             case FILE -> "<file name>";
             case RANGE -> "<min number> <max number>";
         };

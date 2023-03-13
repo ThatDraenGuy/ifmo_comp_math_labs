@@ -23,4 +23,13 @@ public class NonLinearEquationSystem {
             }
         });
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (var equation : equations) {
+            builder.append(equation.toString()).append('\n');
+        }
+        return builder.toString();
+    }
 }

@@ -12,4 +12,10 @@ public class SystemSolution {
     private final Matrix result;
     private final long stepAmount;
     private final Duration duration;
+
+    public String display() {
+        return "-duration: " + duration.getNano() / 1000 + "milliseconds\n" +
+                "-stepAmount: " + stepAmount +"\n" +
+                "-result:\n" + result.displayWithPrecision();
+    }
 }

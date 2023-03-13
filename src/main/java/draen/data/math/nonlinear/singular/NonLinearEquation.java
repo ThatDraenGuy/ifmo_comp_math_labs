@@ -10,6 +10,7 @@ import java.util.function.Function;
 public class NonLinearEquation {
     private final int variablesNum;
     private final Function<Matrix, Double> function;
+    private final String stringRepresentation;
 
 
     public double apply(Matrix variablesRow) throws AlgebraException {
@@ -22,11 +23,19 @@ public class NonLinearEquation {
     }
 
 
-    public double applyDifferential(Matrix variablesRow, int derivativeNum) {
-
+    public double applyDifferential(Matrix variablesRow, int derivativeNum, double step) throws AlgebraException {
+        Matrix increasedVariables = new Matrix(variablesRow.width(), variablesRow.height(),
+                (i, j) -> j == derivativeNum ? variablesRow.getData()[i][j] + step : variablesRow.getData()[i][j]
+        );
+        return ( apply(increasedVariables) - apply(variablesRow) ) / step;
     }
 
-    public double applyDifferential(double value) {
-        return this.applyDifferential(new Matrix(new double[][]{{value}}), 0);
+    public double applyDifferential(double value, double step) throws AlgebraException {
+        return this.applyDifferential(new Matrix(new double[][]{{value}}), 0, step);
+    }
+
+    @Override
+    public String toString() {
+        return stringRepresentation;
     }
 }

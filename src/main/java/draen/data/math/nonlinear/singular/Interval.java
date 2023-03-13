@@ -8,4 +8,9 @@ import lombok.Getter;
 public class Interval {
     private final double a;
     private final double b;
+
+    @Override
+    public String toString() {
+        return "from " + a + " to " + b;
+    }
 }

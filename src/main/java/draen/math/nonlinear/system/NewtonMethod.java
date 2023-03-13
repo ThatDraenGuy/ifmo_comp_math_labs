@@ -37,7 +37,7 @@ public class NewtonMethod implements NonLinearSystemMethod {
 
 
     private Matrix iterate(Matrix x, NonLinearEquationSystem system, double precision) throws AlgebraException {
-        Matrix jacobian = getJacobian(system, x);
+        Matrix jacobian = getJacobian(system, x, precision);
         Matrix f = system.apply(x).mul(-1);
         Solution linearSolution = linearSystemMethod.solve(new Equation(jacobian, f), precision);
         return x.add(linearSolution.getResult());
@@ -45,10 +45,16 @@ public class NewtonMethod implements NonLinearSystemMethod {
     }
 
 
-    private Matrix getJacobian(NonLinearEquationSystem system, Matrix x) {
+    private Matrix getJacobian(NonLinearEquationSystem system, Matrix x, double precision) {
         NonLinearEquation[] equations = system.getEquations();
         int length = equations.length;
-        return new Matrix(length, length, (i, j) -> equations[i].applyDifferential(x, j));
+        return new Matrix(length, length, (i, j) -> {
+            try {
+                return equations[i].applyDifferential(x, j, precision / 100);
+            } catch (AlgebraException e) {
+                return 0.0;
+            }
+        });
     }
 
 }

@@ -1,15 +1,11 @@
 package draen;
 
-import draen.commands.CommandsManager;
-import draen.commands.CommandsStorage;
-import draen.commands.Help;
-import draen.commands.Precision;
+import draen.commands.*;
+import draen.commands.impl.Auto;
+import draen.commands.impl.Go;
 import draen.context.CommandsContext;
 import draen.context.ControllerContext;
-import draen.controllers.ControllerChain;
-import draen.controllers.GreetingsController;
-import draen.controllers.InteractionController;
-import draen.controllers.OptionsController;
+import draen.controllers.*;
 import draen.data.application.Config;
 import draen.data.application.Progress;
 import draen.input.ConsoleManager;
@@ -21,7 +17,12 @@ public class Main {
         CommandsStorage<CommandsContext> commandsStorage = new CommandsStorage<>();
         commandsStorage.addCommands(
                 new Help(),
-                new Precision()
+                new DisplayConfig(),
+                new Auto<>(),
+                new Go<>(),
+                new Precision(),
+                new SetScenario(),
+                new SetInterval()
         );
 
         CommandsContext context = new CommandsContext(
@@ -39,9 +40,11 @@ public class Main {
         );
 
         ControllerChain<CommandsContext> controllerChain = new ControllerChain<>(controllerContext, List.of(
-                new GreetingsController(),
                 new OptionsController<>(),
-                new InteractionController<>()
+                new GreetingsController(),
+                new InteractionController<>(),
+                new CalculationController(),
+                new FarewellController()
         ));
 
         controllerChain.begin();

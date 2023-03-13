@@ -16,19 +16,19 @@ public class TangentMethod implements NonlinearEquationMethod {
         Instant start = Instant.now();
 
         double x = interval.getB();
-        double oldX = Math.abs(x) + precision;
+        double oldX = Math.abs(x) + precision*2;
 
         long stepAmount = 0;
         while (Math.abs(x - oldX) >= precision) {
             oldX = x;
-            x = iterate(equation, x);
+            x = iterate(equation, x, precision);
             stepAmount++;
         }
 
-        return new NonLinearSolution(x, stepAmount, Duration.between(start, Instant.now()));
+        return new NonLinearSolution(x, stepAmount, Duration.between(start, Instant.now()), "Tangent method");
     }
 
-    private double iterate(NonLinearEquation equation, double x) throws AlgebraException {
-        return x - equation.apply(x) / equation.applyDifferential(x);
+    private double iterate(NonLinearEquation equation, double x, double precision) throws AlgebraException {
+        return x - equation.apply(x) / equation.applyDifferential(x, precision / 100);
     }
 }

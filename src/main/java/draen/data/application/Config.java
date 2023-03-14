@@ -26,8 +26,8 @@ public class Config {
     private NonlinearEquationMethod nonlinearEquationMethod2 = new TangentMethod();
     private NonLinearSystemMethod nonLinearSystemMethod = new NewtonMethod();
 
-    private NonLinearEquation nonLinearEquation = Storage.test3();
-    private NonLinearEquationSystem nonLinearEquationSystem = Storage.systemTest2();
+    private NonLinearEquation nonLinearEquation = Storage.equations[0];
+    private NonLinearEquationSystem nonLinearEquationSystem = Storage.systems[0];
 
     public String display() {
         return "precision: " + precision + "\n" +

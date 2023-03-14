@@ -18,11 +18,14 @@ public class Main {
         commandsStorage.addCommands(
                 new Help(),
                 new DisplayConfig(),
+                new DisplayEquations(),
                 new Auto<>(),
                 new Go<>(),
                 new Precision(),
                 new SetScenario(),
-                new SetInterval()
+                new SetInterval(),
+                new SetEquation(),
+                new SetSystem()
         );
 
         CommandsContext context = new CommandsContext(

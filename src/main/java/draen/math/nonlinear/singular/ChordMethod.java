@@ -11,18 +11,21 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class ChordMethod implements NonlinearEquationMethod {
+    public static long MAX_STEP_AMOUNT = 100000;
     @Override
     public NonLinearSolution solve(NonLinearEquation equation,
                                    Interval interval,
                                    double precision) throws AlgebraException {
         Instant start = Instant.now();
 
-        IterationResult iterationResult = new IterationResult(interval, interval.getA(), precision+1);
+        IterationResult iterationResult = new IterationResult(interval, interval.getA(), 0);
 
-        long stepAmount = 0;
-        while ((Math.abs(iterationResult.getFOfC()) >= precision)){
+        int stepAmount = 0;
+        while (true) {
             iterationResult = iterate(equation, iterationResult.getInterval());
             stepAmount++;
+            if (Math.abs(iterationResult.getDiff()) < precision) break;
+            if (stepAmount >= MAX_STEP_AMOUNT) throw new AlgebraException("Too many iterations!");
         }
 
         return new NonLinearSolution(iterationResult.getC(), stepAmount, Duration.between(start, Instant.now()), "Chord method");
@@ -31,13 +34,13 @@ public class ChordMethod implements NonlinearEquationMethod {
     private IterationResult iterate(NonLinearEquation equation, Interval interval) throws AlgebraException {
         double a = interval.getA();
         double b = interval.getB();
-        double fOfA = equation.apply(a);
-        double fOfB = equation.apply(b);
-        double c = a - fOfA / ( fOfB - fOfA ) * ( b - a );
-        double fOfC = equation.apply(c);
-        if (fOfA * fOfC > 0) a = c;
+        double valueA = equation.apply(a);
+        double valueB = equation.apply(b);
+        double c = a - valueA / ( valueB - valueA ) * ( b - a );
+        double valueC = equation.apply(c);
+        if (valueA * valueC > 0) a = c;
         else b = c;
-        return new IterationResult(new Interval(a, b), c, fOfC);
+        return new IterationResult(new Interval(a, b), c, valueC);
     }
 
     @Getter
@@ -45,6 +48,6 @@ public class ChordMethod implements NonlinearEquationMethod {
     private static class IterationResult {
         private final Interval interval;
         private final double c;
-        private final double fOfC;
+        private final double diff;
     }
 }

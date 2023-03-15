@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class TangentMethod implements NonlinearEquationMethod {
+    public static long MAX_STEP_AMOUNT = 100000;
     @Override
     public NonLinearSolution solve(NonLinearEquation equation,
                                    Interval interval,
@@ -16,13 +17,16 @@ public class TangentMethod implements NonlinearEquationMethod {
         Instant start = Instant.now();
 
         double x = interval.getB();
-        double oldX = Math.abs(x) + precision*2;
 
-        long stepAmount = 0;
-        while (Math.abs(x - oldX) >= precision) {
-            oldX = x;
-            x = iterate(equation, x, precision);
+        int stepAmount = 0;
+        while (true) {
+            double newX;
+            newX = iterate(equation, x, precision);
+            double diff = Math.abs(newX - x);
+            x = newX;
             stepAmount++;
+            if (diff < precision) break;
+            if (stepAmount >= MAX_STEP_AMOUNT) throw new AlgebraException("Too many iterations!");
         }
 
         return new NonLinearSolution(x, stepAmount, Duration.between(start, Instant.now()), "Tangent method");

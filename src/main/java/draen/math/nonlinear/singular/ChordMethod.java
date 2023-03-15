@@ -4,8 +4,6 @@ import draen.data.math.nonlinear.singular.Interval;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.exceptions.AlgebraException;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.Duration;
 import java.time.Instant;

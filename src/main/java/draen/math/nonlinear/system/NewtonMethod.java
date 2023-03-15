@@ -24,16 +24,13 @@ public class NewtonMethod implements NonLinearSystemMethod {
 
         int stepAmount = 0;
         while(true) {
-            Matrix newX;
             try {
-                newX = iterate(x, system, precision);
+                x = iterate(x, system, precision);
             } catch (AlgebraException e) {
                 break;
             }
-            double diff = newX.add(x.mul(-1)).norm();
-            x = newX;
             stepAmount++;
-            if (diff < precision) break;
+            if (system.apply(x).norm() < precision) break;
             if (stepAmount >= MAX_STEP_AMOUNT) throw new AlgebraException("Too many iterations!");
         }
 

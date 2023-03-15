@@ -20,12 +20,9 @@ public class TangentMethod implements NonlinearEquationMethod {
 
         int stepAmount = 0;
         while (true) {
-            double newX;
-            newX = iterate(equation, x, precision);
-            double diff = Math.abs(newX - x);
-            x = newX;
+            x = iterate(equation, x, precision);
             stepAmount++;
-            if (diff < precision) break;
+            if (Math.abs(equation.apply(x)) < precision) break;
             if (stepAmount >= MAX_STEP_AMOUNT) throw new AlgebraException("Too many iterations!");
         }
 

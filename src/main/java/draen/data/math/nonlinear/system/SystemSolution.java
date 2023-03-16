@@ -15,7 +15,7 @@ public class SystemSolution {
     private final Duration duration;
 
     public String display() {
-        return "-duration: " + duration.getNano() / 1000 + " milliseconds\n" +
+        return "-duration: " + duration.toNanos() + " nanoseconds\n" +
                 "-stepAmount: " + stepAmount +"\n" +
                 "-result:\n" + result.displayCustom(
                 (i, j) -> "x"+(i+1)+": ",

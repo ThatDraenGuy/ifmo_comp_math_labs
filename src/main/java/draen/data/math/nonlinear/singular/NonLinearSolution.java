@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 @Getter
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class NonLinearSolution {
 
     public String display() {
         return "-method: " + methodName + "\n" +
-                "-duration: " + duration.getNano() / 1000 + " milliseconds\n" +
+                "-duration: " + duration.toNanos() + " nanoseconds\n" +
                 "-stepAmount: " + stepAmount +"\n" +
                 "-result: " + Formatter.formatWithPrecision(result);
     }

@@ -2,6 +2,8 @@ package draen.data.math.nonlinear;
 
 
 import draen.Main;
+import draen.data.math.common.Interval;
+import draen.data.math.integral.IntegralFunction;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
 
@@ -76,5 +78,14 @@ public class Storage {
                                     "x1 - 1 + x2^2"
                             )
                     })
+    };
+
+    public static final IntegralFunction[] integralFunctions = new IntegralFunction[] {
+            new IntegralFunction(
+                    (x) -> x / (Math.pow(x, 4) + 4),
+                    new double[]{},
+                    new Interval[]{},
+                    "x / (x^4 + 4)"
+            )
     };
 }

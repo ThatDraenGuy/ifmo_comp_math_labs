@@ -1,7 +1,6 @@
 package draen.math.nonlinear.singular;
 
-import draen.data.Range;
-import draen.data.math.nonlinear.singular.Interval;
+import draen.data.math.common.Interval;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.exceptions.AlgebraException;

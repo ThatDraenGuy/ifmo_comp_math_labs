@@ -1,4 +1,4 @@
-package draen.data.math.nonlinear.singular;
+package draen.data.math.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

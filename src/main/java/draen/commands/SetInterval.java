@@ -2,7 +2,7 @@ package draen.commands;
 
 import draen.context.CommandsContext;
 import draen.data.Range;
-import draen.data.math.nonlinear.singular.Interval;
+import draen.data.math.common.Interval;
 
 public class SetInterval extends BaseCommand {
     public SetInterval() {

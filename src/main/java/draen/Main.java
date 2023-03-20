@@ -25,7 +25,8 @@ public class Main {
                 new SetScenario(),
                 new SetInterval(),
                 new SetEquation(),
-                new SetSystem()
+                new SetSystem(),
+                new IntegralStepNum()
         );
 
         CommandsContext context = new CommandsContext(

@@ -3,7 +3,9 @@ package draen.controllers;
 import draen.context.CommandsContext;
 import draen.context.ControllerContext;
 import draen.data.application.Scenario;
-import draen.data.math.nonlinear.singular.Interval;
+import draen.data.math.common.Interval;
+import draen.data.math.integral.IntegralFunction;
+import draen.data.math.integral.IntegralSolution;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
@@ -24,6 +26,7 @@ public class CalculationController implements Controller<CommandsContext> {
         switch (scenario) {
             case NONLINEAR_EQUATION -> handleEquation(ctx);
             case NONLINEAR_SYSTEM -> handleSystem(ctx);
+            case INTEGRAL -> handleIntegral(ctx);
         }
     }
 
@@ -55,5 +58,19 @@ public class CalculationController implements Controller<CommandsContext> {
         } catch (AlgebraException e) {
             ioManager.displayError(e);
         }
+    }
+
+    private void handleIntegral(ControllerContext<CommandsContext> ctx) {
+        IOManager ioManager = ctx.getCommon().getIoManager();
+        IntegralFunction function = ctx.getCommon().getConfig().getIntegralFunction();
+        Interval interval = ctx.getCommon().getConfig().getSolutionInterval();
+        int stepNum = ctx.getCommon().getConfig().getIntegralStepNum();
+        try {
+            IntegralSolution solution = ctx.getCommon().getConfig().getIntegralMethod().solve(function, interval, stepNum);
+            ioManager.println(solution.display());
+        } catch (AlgebraException e) {
+            ioManager.displayError(e);
+        }
+
     }
 }

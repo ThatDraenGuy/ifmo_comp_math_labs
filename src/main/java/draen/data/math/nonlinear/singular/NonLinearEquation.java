@@ -1,5 +1,6 @@
 package draen.data.math.nonlinear.singular;
 
+import draen.data.math.common.SingularFunction;
 import draen.exceptions.AlgebraException;
 import draen.math.linear.Matrix;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.AllArgsConstructor;
 import java.util.function.Function;
 
 @AllArgsConstructor
-public class NonLinearEquation {
+public class NonLinearEquation implements SingularFunction {
     private final int variablesNum;
     private final Function<Matrix, Double> function;
     private final String stringRepresentation;

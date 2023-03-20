@@ -11,6 +11,7 @@ import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
 import draen.data.math.nonlinear.system.SystemSolution;
 import draen.exceptions.AlgebraException;
+import draen.format.Formatter;
 import draen.input.IOManager;
 
 import java.util.List;
@@ -66,7 +67,9 @@ public class CalculationController implements Controller<CommandsContext> {
         Interval interval = ctx.getCommon().getConfig().getSolutionInterval();
         int stepNum = ctx.getCommon().getConfig().getIntegralStepNum();
         try {
-            IntegralSolution solution = ctx.getCommon().getConfig().getIntegralMethod().solve(function, interval, stepNum);
+            IntegralSolution solution = ctx.getCommon().getConfig().getIntegralMethod()
+                    .solve(function, interval, stepNum);
+            Formatter.setPrecision(solution.getActualPrecision());
             ioManager.println(solution.display());
         } catch (AlgebraException e) {
             ioManager.displayError(e);

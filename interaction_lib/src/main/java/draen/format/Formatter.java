@@ -20,7 +20,7 @@ public class Formatter {
 
 
     public static void setPrecision(double precision) {
-        if (precision <= 0.0000001) throw new IllegalArgumentException("Cannot work with precision like this!");
+        if (precision <= 1e-20) throw new IllegalArgumentException("Cannot work with precision like this!");
         if (precision >= 1) {
             withPrecisionDecimalFormat.applyPattern("0");
         } else {
@@ -33,7 +33,14 @@ public class Formatter {
         BigDecimal decimal = BigDecimal.valueOf(num);
         String text = decimal.toPlainString();
         String[] split = text.split("\\.");
-        if (split.length > 1) return split[1].length();
+        if (split.length > 1) {
+            int i = 1;
+            for (char c : split[1].toCharArray()) {
+                if (c != '0') break;
+                i++;
+            }
+            return i;
+        }
         return 0;
     }
 }

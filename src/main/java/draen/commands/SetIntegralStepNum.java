@@ -2,8 +2,8 @@ package draen.commands;
 
 import draen.context.CommandsContext;
 
-public class IntegralStepNum extends BaseCommand {
-    public IntegralStepNum() {
+public class SetIntegralStepNum extends BaseCommand {
+    public SetIntegralStepNum() {
         super(new CommandData("integral_steps", 'I', "Sets integral step num",
                 ArgsType.INT, CommandType.BOTH));
     }

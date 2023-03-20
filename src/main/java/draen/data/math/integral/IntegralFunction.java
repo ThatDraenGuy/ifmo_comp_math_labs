@@ -11,6 +11,8 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class IntegralFunction implements SingularFunction {
     private final Function<Double, Double> function;
+    private final Function<Double, Double> integralFunction;
+    private final Function<Double, Double> forthDifferential;
 
     private final double[] removableDiscontinuities;
     private final Interval[] essentialDiscontinuities;
@@ -18,6 +20,14 @@ public class IntegralFunction implements SingularFunction {
 
     public double apply(double num) {
         return function.apply(num);
+    }
+
+    public double applyIntegral(double num) {
+        return integralFunction.apply(num);
+    }
+
+    public double applyForthDifferential(double num) {
+        return forthDifferential.apply(num);
     }
 
     public boolean doesIntervalContainAnEssentialDiscontinuity(Interval interval) {

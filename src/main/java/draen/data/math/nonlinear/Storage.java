@@ -82,10 +82,28 @@ public class Storage {
 
     public static final IntegralFunction[] integralFunctions = new IntegralFunction[] {
             new IntegralFunction(
-                    (x) -> x / (Math.pow(x, 4) + 4),
+                    (x) -> Math.pow(x, 2),
+                    (x) -> 1.0/3.0 * Math.pow(x, 3),
+                    (x) -> 0.0,
                     new double[]{},
                     new Interval[]{},
-                    "x / (x^4 + 4)"
+                    "x^2"
+            ),
+            new IntegralFunction(
+                    Math::sqrt,
+                    (x) -> 2.0/3.0 * Math.pow(x, 1.5),
+                    (x) -> -15.0/( 16.0 * Math.pow(x, 3.5) ),
+                    new double[]{},
+                    new Interval[]{},
+                    "sqrt(x)"
+            ),
+            new IntegralFunction(
+                    Math::sin,
+                    (x) -> -1*Math.cos(x),
+                    Math::sin,
+                    new double[]{},
+                    new Interval[]{},
+                    "sin(x)"
             )
     };
 }

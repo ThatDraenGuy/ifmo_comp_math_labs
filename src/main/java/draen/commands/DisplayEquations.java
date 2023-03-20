@@ -21,6 +21,10 @@ public class DisplayEquations extends BaseCommand {
         for (int i = 0; i < Storage.systems.length; i++) {
             ioManager.println(i + ":\n" + Storage.systems[i].toString());
         }
-        return new ExecutionResult(true, "All equations & systems displayed");
+        ioManager.println("\nIntegral functions:");
+        for (int i = 0; i < Storage.integralFunctions.length; i++) {
+            ioManager.println(i + ": " + Storage.integralFunctions[i].toString());
+        }
+        return new ExecutionResult(true, "All equations, systems & functions displayed");
     }
 }

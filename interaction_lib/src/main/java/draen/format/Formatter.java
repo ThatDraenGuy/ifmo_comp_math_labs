@@ -20,7 +20,7 @@ public class Formatter {
 
 
     public static void setPrecision(double precision) {
-        if (precision <= 1e-20) throw new IllegalArgumentException("Cannot work with precision like this!");
+        if (precision <= 1e-20) precision = 1e-20;
         if (precision >= 1) {
             withPrecisionDecimalFormat.applyPattern("0");
         } else {

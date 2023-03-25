@@ -4,6 +4,8 @@ import draen.data.math.common.SingularFunction;
 import draen.data.math.common.Interval;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -37,11 +39,12 @@ public class IntegralFunction implements SingularFunction {
         return false;
     }
 
-    public Optional<Double> getRemovableDiscontinuity(Interval interval) {
-        for (double dot : removableDiscontinuities) {
-            if (isDotInInterval(dot, interval)) return Optional.of(dot);
+    public Double[] getRemovableDiscontinuities(Interval interval) {
+        List<Double> discontinuities = new ArrayList<>();
+        for (double num : removableDiscontinuities) {
+            if (isDotInInterval(num, interval)) discontinuities.add(num);
         }
-        return Optional.empty();
+        return discontinuities.toArray(new Double[0]);
     }
 
     public boolean isARemovableDiscontinuity(double dot) {

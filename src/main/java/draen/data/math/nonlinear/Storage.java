@@ -104,6 +104,30 @@ public class Storage {
                     new double[]{},
                     new Interval[]{},
                     "sin(x)"
+            ),
+            new IntegralFunction(
+                    (x) -> ( Math.pow(x, 2) + 5*x ) / x,
+                    (x) -> 1.0/2.0 * x * (x + 10),
+                    (x) -> 0.0,
+                    new double[]{0.0},
+                    new Interval[]{},
+                    "(x^2 + 5x)/x"
+            ),
+            new IntegralFunction(
+                    (x) -> 1/x,
+                    Math::log,
+                    (x) -> 24.0 / Math.pow(x, 5),
+                    new double[]{},
+                    new Interval[]{new Interval(0.0, 0.0)},
+                    "1/x"
+            ),
+            new IntegralFunction(
+                    (x) -> x * Math.pow(2, x),
+                    (x) -> Math.pow(2, x) * ( x * Math.log(2) - 1 ) /( Math.pow( Math.log(2), 2 ) ),
+                    (x) -> Math.pow(2, x) * Math.pow( Math.log(2), 3 ) * ( x * Math.log(2) + 4 ),
+                    new double[]{-0.1, -0.05, 0.0, 0.05, 0.1},
+                    new Interval[]{},
+                    "x*2^x"
             )
     };
 }

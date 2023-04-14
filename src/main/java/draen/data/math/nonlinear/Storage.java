@@ -3,9 +3,14 @@ package draen.data.math.nonlinear;
 
 import draen.Main;
 import draen.data.math.common.Interval;
+import draen.data.math.inetrpolation.InterpolationFunction;
 import draen.data.math.integral.IntegralFunction;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class Storage {
     public static final NonLinearEquation[] equations = new NonLinearEquation[] {
@@ -128,6 +133,33 @@ public class Storage {
                     new double[]{-0.1, -0.05, 0.0, 0.05, 0.1},
                     new Interval[]{},
                     "x*2^x"
+            )
+    };
+
+    private static double getY(double x) {
+        return Math.pow(x, 3) * Math.log(x) + Math.sin(x) / x;
+    }
+    private static final List<Double> xAxis = List.of(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,
+            1.1, 1.2, 1.3, 1.4, 1.5);
+
+    public static final InterpolationFunction[] interpolationFunctions = new InterpolationFunction[] {
+            new InterpolationFunction(
+                    5,
+                    List.of(0.0, 1.0, 2.0, 3.0, 4.0, 5.0),
+                    List.of(0.0, 1.0, 4.0, 9.0, 16.0, 25.0),
+                    "y = x^2"
+            ),
+            new InterpolationFunction(
+                    3,
+                    List.of(-2.0, 0.0, 2.0),
+                    List.of(Math.exp(-2.0), Math.exp(0.0), Math.exp(2.0)),
+                    "y = e^x"
+            ),
+            new InterpolationFunction(
+                    15,
+                    xAxis,
+                    xAxis.stream().map(Storage::getY).collect(Collectors.toList()),
+                    "y = x^3*log(x) + sin(x)/x"
             )
     };
 }

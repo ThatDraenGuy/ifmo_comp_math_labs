@@ -4,12 +4,15 @@ import draen.context.CommandsContext;
 import draen.context.ControllerContext;
 import draen.data.application.Scenario;
 import draen.data.math.common.Interval;
+import draen.data.math.inetrpolation.InterpolationFunction;
+import draen.data.math.inetrpolation.InterpolationSolution;
 import draen.data.math.integral.IntegralFunction;
 import draen.data.math.integral.IntegralSolution;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
 import draen.data.math.nonlinear.system.SystemSolution;
+import draen.display.InterpolationDisplayer;
 import draen.exceptions.AlgebraException;
 import draen.format.Formatter;
 import draen.input.IOManager;
@@ -28,6 +31,7 @@ public class CalculationController implements Controller<CommandsContext> {
             case NONLINEAR_EQUATION -> handleEquation(ctx);
             case NONLINEAR_SYSTEM -> handleSystem(ctx);
             case INTEGRAL -> handleIntegral(ctx);
+            case INTERPOLATION -> handleInterpolation(ctx);
         }
     }
 
@@ -74,6 +78,22 @@ public class CalculationController implements Controller<CommandsContext> {
         } catch (AlgebraException e) {
             ioManager.displayError(e);
         }
+
+    }
+
+    private void handleInterpolation(ControllerContext<CommandsContext> ctx) {
+        IOManager ioManager = ctx.getCommon().getIoManager();
+        InterpolationFunction function = ctx.getCommon().getConfig().getInterpolationFunction();
+
+        try {
+            InterpolationSolution solution = ctx.getCommon().getConfig().getInterpolationMethod()
+                    .interpolate(function, List.of(ctx.getCommon().getConfig().getInterpolationDot()));
+            new InterpolationDisplayer().display(function, solution, ctx.getCommon().getConfig(), ioManager);
+        } catch (AlgebraException e) {
+            ioManager.displayError(e);
+        }
+
+
 
     }
 }

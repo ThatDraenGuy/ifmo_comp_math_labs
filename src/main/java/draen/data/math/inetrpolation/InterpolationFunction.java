@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.function.Function;
 
 @Getter
 @AllArgsConstructor
@@ -11,6 +12,7 @@ public class InterpolationFunction {
     private final int dotNum;
     private final List<Double> x;
     private final List<Double> y;
+    private final Function<Double, Double> actualFunction;
     private final String stringRepresentation;
 
     private String representList(List<Double> list) {

@@ -88,6 +88,7 @@ public class CalculationController implements Controller<CommandsContext> {
         try {
             InterpolationSolution solution = ctx.getCommon().getConfig().getInterpolationMethod()
                     .interpolate(function, List.of(ctx.getCommon().getConfig().getInterpolationDot()));
+            ioManager.println(solution.toString());
             new InterpolationDisplayer().display(function, solution, ctx.getCommon().getConfig(), ioManager);
         } catch (AlgebraException e) {
             ioManager.displayError(e);

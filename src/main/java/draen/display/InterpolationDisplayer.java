@@ -7,6 +7,10 @@ import draen.data.math.inetrpolation.InterpolationFunction;
 import draen.data.math.inetrpolation.InterpolationSolution;
 import draen.input.IOManager;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class InterpolationDisplayer {
 
@@ -14,8 +18,20 @@ public class InterpolationDisplayer {
                         IOManager ioManager) {
         //To lazy to configure any smarter
         Plot plot = Plot.create(PythonConfig.pythonBinPathConfig("/usr/bin/python3"));
+
+        double start = function.getX().get(0);
+        double end = function.getX().get(function.getX().size()-1);
+        int step = 100;
+        List<Double> dots = new ArrayList<>(step);
+        for (int i = 0; i < step; i++) {
+            dots.add(start + (end - start) / step * (i+1));
+        }
+
         plot.plot()
-                .add(function.getX(), function.getY())
+                .add(dots, dots.stream()
+                        .map(num -> function.getActualFunction().apply(num))
+                        .collect(Collectors.toList()))
+                .add(function.getX(), function.getY(), "o")
                 .add(solution.getX(), solution.getY(), "o");
         try {
             plot.show();

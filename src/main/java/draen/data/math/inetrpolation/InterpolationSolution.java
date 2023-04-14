@@ -5,12 +5,14 @@ import lombok.Getter;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
 
 @Getter
 @AllArgsConstructor
 public class InterpolationSolution {
     private final List<Double> x;
     private final List<Double> y;
+    private final Function<Double, Double> approximatedFunction;
     private final Duration duration;
 
     private String representDots() {

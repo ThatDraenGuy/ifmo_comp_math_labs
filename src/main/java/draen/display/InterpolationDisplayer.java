@@ -30,9 +30,16 @@ public class InterpolationDisplayer {
         plot.plot()
                 .add(dots, dots.stream()
                         .map(num -> function.getActualFunction().apply(num))
-                        .collect(Collectors.toList()))
-                .add(function.getX(), function.getY(), "o")
-                .add(solution.getX(), solution.getY(), "o");
+                        .collect(Collectors.toList())).label("function");
+        plot.plot()
+                .add(dots, dots.stream()
+                        .map(num -> solution.getApproximatedFunction().apply(num))
+                        .collect(Collectors.toList())).label("interpolation");
+        plot.plot()
+                .add(function.getX(), function.getY(), "o").label("initial dots");
+        plot.plot()
+                .add(solution.getX(), solution.getY(), "o").label("interpolated dots");
+        plot.legend().loc("upper left");
         try {
             plot.show();
         } catch (Exception e) {

@@ -27,11 +27,16 @@ public class LagrangeMethod implements InterpolationMethod {
             result.add(interpolateByLagrange(function.getX(), function.getY(), dot));
         }
 
-        return new InterpolationSolution(dots, result, Duration.between(start, Instant.now()));
+        return new InterpolationSolution(dots, result, getApproximatedFunction(function.getX(), function.getY()),
+                Duration.between(start, Instant.now()));
     }
 
     private double interpolateByLagrange(List<Double> xAxis, List<Double> yAxis, double x) {
-        return IntStream.range(0, yAxis.size())
+        return getApproximatedFunction(xAxis, yAxis).apply(x);
+    }
+
+    private Function<Double, Double> getApproximatedFunction(List<Double> xAxis, List<Double> yAxis) {
+        return (x) -> IntStream.range(0, yAxis.size())
                 .mapToDouble(i ->
                         yAxis.get(i) * getMultiplier(i, xAxis).apply(x)
                 )

@@ -29,7 +29,8 @@ public class Main {
                 new SetIntegralFunction(),
                 new SetIntegralStepNum(),
                 new SetInterpolationFunction(),
-                new SetInterpolationDot()
+                new SetInterpolationDot(),
+                new SetDifferentialEquation()
         );
 
         CommandsContext context = new CommandsContext(

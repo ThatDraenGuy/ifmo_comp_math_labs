@@ -3,6 +3,7 @@ package draen.data.math.nonlinear;
 
 import draen.Main;
 import draen.data.math.common.Interval;
+import draen.data.math.differential.DifferentialEquation;
 import draen.data.math.inetrpolation.InterpolationFunction;
 import draen.data.math.integral.IntegralFunction;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
@@ -161,6 +162,27 @@ public class Storage {
                             1.1, 1.2, 1.3, 1.4, 1.5),
                     x -> Math.pow(x, 3) * Math.log(x) + Math.sin(x) / x,
                     "y = x^3*log(x) + sin(x)/x"
+            )
+    };
+
+    public static final DifferentialEquation[] differentialEquations = new DifferentialEquation[] {
+            new DifferentialEquation(
+                    (x, y) -> Math.sin(x),
+                    (x, c) -> c - Math.cos(x),
+                    (x, y) -> y + Math.cos(x),
+                    "dy/dx = sin(x)"
+            ),
+            new DifferentialEquation(
+                    (x, y) -> (x * y) / 2,
+                    (x, c) -> c * Math.exp( Math.pow(x, 2) / 4 ),
+                    (x, y) -> y / Math.exp( Math.pow(x, 2) / 4 ),
+                    "dy/dx = xy/2"
+            ),
+            new DifferentialEquation(
+                    (x, y) -> x + y,
+                    (x, c) -> c * Math.exp(x) - x - 1,
+                    (x, y) -> (y + x + 1) / Math.exp(x),
+                    "dy/dx = x+y"
             )
     };
 }

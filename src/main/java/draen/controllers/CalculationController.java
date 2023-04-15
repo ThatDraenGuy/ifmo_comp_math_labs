@@ -2,8 +2,11 @@ package draen.controllers;
 
 import draen.context.CommandsContext;
 import draen.context.ControllerContext;
+import draen.data.application.Config;
 import draen.data.application.Scenario;
 import draen.data.math.common.Interval;
+import draen.data.math.differential.DifferentialEquation;
+import draen.data.math.differential.DifferentialSolution;
 import draen.data.math.inetrpolation.InterpolationFunction;
 import draen.data.math.inetrpolation.InterpolationSolution;
 import draen.data.math.integral.IntegralFunction;
@@ -12,6 +15,7 @@ import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.singular.NonLinearSolution;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
 import draen.data.math.nonlinear.system.SystemSolution;
+import draen.display.DifferentialDisplayer;
 import draen.display.InterpolationDisplayer;
 import draen.exceptions.AlgebraException;
 import draen.format.Formatter;
@@ -32,6 +36,7 @@ public class CalculationController implements Controller<CommandsContext> {
             case NONLINEAR_SYSTEM -> handleSystem(ctx);
             case INTEGRAL -> handleIntegral(ctx);
             case INTERPOLATION -> handleInterpolation(ctx);
+            case DIFFERENTIAL -> handleDifferential(ctx);
         }
     }
 
@@ -93,8 +98,23 @@ public class CalculationController implements Controller<CommandsContext> {
         } catch (AlgebraException e) {
             ioManager.displayError(e);
         }
+    }
 
+    private void handleDifferential(ControllerContext<CommandsContext> ctx) {
+        IOManager ioManager = ctx.getCommon().getIoManager();
+        Config config = ctx.getCommon().getConfig();
+        DifferentialEquation equation = config.getDifferentialEquation();
+        Interval interval = config.getSolutionInterval();
+        double dot = config.getInterpolationDot();
+        int steps = config.getIntegralStepNum();
 
-
+        try {
+            DifferentialSolution solution = config.getDifferentialEquationMethod().solve(equation, interval, dot,
+                    steps);
+            ioManager.println(solution.toString());
+            new DifferentialDisplayer().display(equation, solution, interval, dot, config, ioManager);
+        } catch (Exception e) {
+            ioManager.displayError(e);
+        }
     }
 }

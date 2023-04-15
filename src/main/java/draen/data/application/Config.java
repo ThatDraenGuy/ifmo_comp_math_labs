@@ -1,11 +1,14 @@
 package draen.data.application;
 
+import draen.data.math.differential.DifferentialEquation;
 import draen.data.math.inetrpolation.InterpolationFunction;
 import draen.data.math.integral.IntegralFunction;
 import draen.data.math.nonlinear.Storage;
 import draen.data.math.common.Interval;
 import draen.data.math.nonlinear.singular.NonLinearEquation;
 import draen.data.math.nonlinear.system.NonLinearEquationSystem;
+import draen.math.differentional.DifferentialEquationMethod;
+import draen.math.differentional.EulerMethod;
 import draen.math.integral.IntegralMethod;
 import draen.math.integral.SimpsonMethod;
 import draen.math.interpolation.InterpolationMethod;
@@ -34,6 +37,7 @@ public class Config {
     private NonLinearSystemMethod nonLinearSystemMethod = new NewtonMethod();
     private IntegralMethod integralMethod = new SimpsonMethod();
     private InterpolationMethod interpolationMethod = new LagrangeMethod();
+    private DifferentialEquationMethod differentialEquationMethod = new EulerMethod();
 
     private NonLinearEquation nonLinearEquation = Storage.equations[0];
     private NonLinearEquationSystem nonLinearEquationSystem = Storage.systems[0];
@@ -41,6 +45,7 @@ public class Config {
     private IntegralFunction integralFunction = Storage.integralFunctions[0];
     private InterpolationFunction interpolationFunction = Storage.interpolationFunctions[0];
     private double interpolationDot = 0;
+    private DifferentialEquation differentialEquation = Storage.differentialEquations[0];
 
     public String display() {
         return
@@ -60,6 +65,11 @@ public class Config {
                     case INTERPOLATION ->
                             "selected function: " + interpolationFunction + "\n" +
                             "interpolation dot: " + interpolationDot;
+                    case DIFFERENTIAL ->
+                            "selected equation: " + differentialEquation + "\n" +
+                            "interval: " + solutionInterval + "\n" +
+                            "steps: " + integralStepNum + "\n" +
+                            "starter condition (dot): " + interpolationDot;
                 };
     }
 }

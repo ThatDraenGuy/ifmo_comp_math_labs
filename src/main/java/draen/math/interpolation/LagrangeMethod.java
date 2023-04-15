@@ -23,12 +23,15 @@ public class LagrangeMethod implements InterpolationMethod {
         }
 
         List<Double> result = new ArrayList<>();
+        List<Double> precisions = new ArrayList<>();
         for (double dot : dots) {
-            result.add(interpolateByLagrange(function.getX(), function.getY(), dot));
+            double res = interpolateByLagrange(function.getX(), function.getY(), dot);
+            result.add(res);
+            precisions.add(Math.abs( res - function.getActualFunction().apply(dot) ));
         }
 
-        return new InterpolationSolution(dots, result, getApproximatedFunction(function.getX(), function.getY()),
-                Duration.between(start, Instant.now()));
+        return new InterpolationSolution(dots, result, precisions, getApproximatedFunction(function.getX(),
+                function.getY()), Duration.between(start, Instant.now()));
     }
 
     private double interpolateByLagrange(List<Double> xAxis, List<Double> yAxis, double x) {

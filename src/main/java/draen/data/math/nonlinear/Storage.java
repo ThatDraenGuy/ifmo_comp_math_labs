@@ -151,6 +151,12 @@ public class Storage {
                     "y = e^x"
             ),
             new InterpolationFunction(
+                    5,
+                    List.of(-2.0, -1.0, 0.0, 1.0, 2.0),
+                    Math::exp,
+                    "y = e^x"
+            ),
+            new InterpolationFunction(
                     4,
                     List.of(0.1, 0.5, 1.0, 1.5),
                     x -> Math.pow(x, 3) * Math.log(x) + Math.sin(x) / x,
